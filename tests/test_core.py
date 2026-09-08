@@ -33,3 +33,28 @@ def test_char_frequencies_counts_punctuation_and_digits():
         "1": 1,
         "!": 1,
     }
+
+import pytest
+from textstats import longest_word
+
+def test_longest_word_rejects_empty():
+    with pytest.raises(ValueError):
+        longest_word("")
+    with pytest.raises(ValueError):
+        longest_word("   ") 
+
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("hello world", "hello"),
+        ("the end.", "end."),
+        ("a bb ccc", "ccc"),
+        ("python programming", "programming"),
+    ]
+)
+def test_longest_normal(text, expected):
+    assert longest_word(text) == expected
+
+def test_longest_word_tie_left():
+    assert longest_word("aaaa bbbb") == "aaaa"
+    assert longest_word("x yy zz") == "yy"
