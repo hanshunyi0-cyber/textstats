@@ -15,3 +15,7 @@ def char_frequencies(text: str) -> dict[str, int]:
 
 def longest_word(text: str) -> str:
     """The longest token. Raises ValueError on empty input."""
+    if not text or text.isspace():
+        raise ValueError("empty input")
+    tokens = text.split()
+    return max(tokens, key=len)
